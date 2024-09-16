@@ -5,27 +5,54 @@
     <title>Server-Side Calculator</title>    
     <script defer src="scripts/axios.js"></script>
     <script defer src="scripts/client.js" charset="utf-8"></script>
+    <script src="app.js"></script>
   </head>
   <body>
     <h1>Server-Side Calculator</h1>
+   <!--will put calculator buttons here-->
+    
 
     <form data-testid="calculator">
-      <input data-testid="numOne" placeholder="First Number">
-      <button>+</button>
-      <button>-</button>
-      <button>*</button>
-      <button>/</button>
-      <input data-testid="numTwo" placeholder="Second Number">
-      <button>=</button>
-      <button>C</button>
+      <input data-testid="numOne" type="number" placeholder="First Number">
+      <button type="button" onClick="calculate('+')">+</button>  <!--onClick functionality added to buttons-->
+      <button type="button" onClick="calculate('-')">-</button>
+      <button type="button" onClick="calculate('*')">*</button>
+      <button type="button" onClick="calculate('/')">/</button>
+      <input data-testid="numTwo" type="number" placeholder="Second Number">
+      <button type="button" onClick="calculate('=')">=</button>
+      <button type="reset">C</button>  <!--type assigned to reset button-->
+      <form class="calculator-container"> <!--input type="text" id="display" class="display"-->
+        <div class="button">
+          <button class="button" onClick="Btn(7)">7</button>
+          <button class="button" onClick="Btn(8)">8</button>
+          <button class="button" onClick="Btn(9)">9</button>
+          <button class="button" onClick="Btn(4)">4</button>
+          <button class="button" onClick="Btn(5)">5</button>
+          <button class="button" onClick="Btn(6)">6</button>
+          <button class="button" onClick="Btn(1)">1</button>
+          <button class="button" onClick="Btn(2)">2</button>
+          <button class="button" onClick="Btn(3)">3</button>
+
+          <button class="button" onClick="Btn(0)">0</button>
+          <button class="button" onClick="Btn('.')">.</button>
+
+        </form>
+        </div>
     </form>
 
     <section data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
+       <h2 id="recentResultMost">Recent Calculation Result:</h2>
     </section>
 
     <section data-testid="resultHistory">
       <!-- The list of calculation results goes here. -->
+       <h2>Calculation History:</h2>
+       <ul id="resultHistory"></ul>
     </section>
+<script>
+
+
+</script>
   </body>
 </html>
