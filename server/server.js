@@ -10,7 +10,23 @@ app.use(express.static('server/public'));
 app.use(express.urlencoded({extended:true}))
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = []
+let calculations = [{
+  num1: 12,
+  num2: 4,
+  op: '*',
+  answer: 8}, 
+  {
+  num1: 6,
+  num2: 9,
+  op: '-',
+  answer: 5}, 
+  {
+    num1: 5,
+    num2: 2,
+    op: '+',
+    answer: 7
+  }
+]
 
 
 // Here's a wonderful place to make some routes:
@@ -46,7 +62,9 @@ if (process.env.NODE_ENV === 'test') {
 const server = app.listen(PORT, () => {
   console.log('server running on: ', PORT);
 });
-
+app.post('/calculations', (req, res) => {
+  res.send(calculations)
+})
 // server.setTimeout(500)
 
 // This is more weird "for testing reasons" code. There is

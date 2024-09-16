@@ -5,7 +5,7 @@
     <title>Server-Side Calculator</title>    
     <script defer src="scripts/axios.js"></script>
     <script defer src="scripts/client.js" charset="utf-8"></script>
-    <script src="app.js"></script>
+    <!--script src="app.js"></script-->
   </head>
   <body>
     <h1>Server-Side Calculator</h1>
@@ -13,6 +13,7 @@
     
 
     <form data-testid="calculator">
+      
       <input data-testid="numOne" type="number" placeholder="First Number">
       <button type="button" onClick="calculate('+')">+</button>  <!--onClick functionality added to buttons-->
       <button type="button" onClick="calculate('-')">-</button>
@@ -42,13 +43,14 @@
 
     <section data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
-       <h2 id="recentResultMost">Recent Calculation Result:</h2>
+       <section id="recentResult">Recent Calculation Result:</section>
     </section>
 
     <section data-testid="resultHistory">
       <!-- The list of calculation results goes here. -->
        <h2>Calculation History:</h2>
        <ul id="resultHistory"></ul>
+       <!--will display server history-->
     </section>
 <script>
 
