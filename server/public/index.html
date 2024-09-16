@@ -15,10 +15,10 @@
     <form data-testid="calculator">
       
       <input data-testid="numOne" type="number" placeholder="First Number">
-      <button type="button" onClick="calculate('+')">+</button>  <!--onClick functionality added to buttons-->
-      <button type="button" onClick="calculate('-')">-</button>
-      <button type="button" onClick="calculate('*')">*</button>
-      <button type="button" onClick="calculate('/')">/</button>
+      <button type="button" onClick="calculate(event, '+')">+</button>  <!--onClick functionality added to buttons-->
+      <button type="button" onClick="calculate(event, '-')">-</button>
+      <button type="button" onClick="calculate(event, '*')">*</button>
+      <button type="button" onClick="calculate(event, '/')">/</button>
       <input data-testid="numTwo" type="number" placeholder="Second Number">
       <button type="button" onClick="calculate('=')">=</button>
       <button type="reset">C</button>  <!--type assigned to reset button-->

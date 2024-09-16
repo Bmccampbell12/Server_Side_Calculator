@@ -6,25 +6,35 @@ console.log("onready( has been activated")
 
 //gitHistory()
 
-    renderHistory()
+    getHistory()
 };
 
 
 onReady()
 
+function calculate(op) {
+    currentOperator = op
+    console.log("incoming operator", op)
+}
+
 function postCalculation(event) {
     event.preventDefault()
+    console.log("postCalculation() activated")
+
 
     let calculationToSend = {
         
-            num1: 12,
-            num2: 4,
-            op: '*',
+            num1: num1,
+            num2: num2,
+            op: currentOperator,
     }
 }
 
 //render function thats called when new calc. is submitted
 function getHistory () {
+    let num1 = document.getElementById('numOne').value
+    let num2 = document.getElementById('numTwo').value
+
     axios({
         method: 'GET',
         url: '/calculations',
@@ -38,6 +48,8 @@ function getHistory () {
     console.error(error)
 
 })
+
+
 }
 
 function renderHistory(history) {
@@ -47,7 +59,7 @@ function renderHistory(history) {
 //Call render history function with response.data
 let recentResultSection = document.getElementById('recentResult')
 
-recentResult = history(history.length -1).answer
+recentResult = history(history.length-1).answer
 
 console.log('recent result:', recentResult)
 
