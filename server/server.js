@@ -34,7 +34,7 @@ app.get('/calculations', (req, res) => {
     history: calculations
   });
 
-//POST /calculations
+//POST /calculations adds 
 app.post('/calculations', (req, res) => {
 
   let calculationsToAdd = req.body

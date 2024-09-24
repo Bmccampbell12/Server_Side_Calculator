@@ -1,112 +1,99 @@
 //Need render function that calls when page first loads
-//and when new calculation is submitted. 
+console.log('client.js sourced!')
 
-let currentOperator;
+let currentOperator 
 
-function onReady() {
-    console.log('onReady() working!');
+//Takes OP from DOM onClick buttons
+let setOperator = (event, op) => {
+    event.preventDefault()
 
-    getHistory()
-}
-
-// function changeOperator(event, op) {
-//     event.preventDefault();
-//     currentOperator = op;
-//     console.log("operator after reassignment", currentOperator);
-// }
-
-// function clearForm(event) {
-//     event.preventDefault()
-//     currentOperator = undefined
-    
-//     document.getElementById('numOne').value = '';
-//     document.getElementById('numTwo').value = '';
-// }
-
-
-
-function calculate(op) {
     currentOperator = op
-    console.log("incoming operator", op)
+    console.log("current operator:", currentOperator)
 }
 
-// function postCalculation(event) {
-//     event.preventDefault()
-//     console.log("postCalculation() activated")
+// function to 'GET' request to retrieve History 
+let getHistory = () => {
+    console.log("getHistory function is working!")
+    //Axios call!
+    axios({
+        method: 'GET',
+        url:'/getHistory'
+    })
+    .then((response) => {
+        console.log('response received from getHistory:', response.data)
+        let history = response.data
+        renderHistory(history)
 
+    })
+    .catch((error) =>{
+        console.log('error in "GET"/getHistory', error)
+    })
+}
 
-//     let calculationToSend = {
-        
-//             num1: num1,
-//             num2: num2,
-//             op: currentOperator
-//     }
-// }
+getHistory()
+//posts new calc. to /postHistory
 
-// //render function thats called when new calc. is submitted
-// function getHistory () {
+let postHistory = (event) => {
+    event.preventDefault()
+        console.log('new history has been created')
 
-//     axios({
-//         method: 'GET',
-//         url: '/calculations',
-//         // data: {calculationToSend}
-//     })
+        //Input field selectors
+        let numOne = document.getElementById('numOne').value
+        let numTwo = document.getElementById('numTwo').value
 
-//     .then((response) => {
-//         console.log("History from 'GET' request:", response.data)
-//     })
-// .catch((error) => {
-//     console.error(error)
+        let newHistory = {
+            num1: numOne,
+            num2: numTwo,
+            operator: currentOperator,
+        }
+console.log('new send history', newHistory)
+    
+        axios({
+            method: 'POST',
+            url: '/postHistory',
+            data: newHistory
+        })
+        .then((response) => {
+            console.log('/postHistory successful!')
 
-// })
+            //need to re-render the DOM.
+            getHistory()
+            // Clear form after 'post'
+            clearForm(event)
+        })
+        .catch((error) => {
+            console.error('error on POST/ postHistory', error)
+            alert('POST not working')
+        })
+}
+//render function
+let renderHistory = (calcHistory) => {
+    console.log(calcHistory)
 
+    let resultHistory = document.getElementById('resultHistory')
+    resultHistory.innerHTML = ""
 
-// }
+    for (let history of calcHistory) {
+        resultHistory.innerHTML += `
+            <div>${history.num1} ${history.operator} ${history.num2} = ${history.result}</div>
+        `
+    }
+    let recentResult = document.getElementById("recentResult")
+    let lastHistory = calcHistory[calcHistory.length - 1]
+    
+    // Will only render last history if exists in the history array.
+    if (lastHistory) {
+        recentResult.innerHTML = `
+        <div>${lastHistory.result}</div>
+    `
+    }
 
-// function renderHistory(history) {
-//     console.log("renderHistory() has been activated", history)
+}
 
-// //Get requestfrom server using axios, to retrieve history
-// //Call render history function with response.data
+let clearForm = (event) => {
+    event.preventDefault()
+    //selectors for input fields
+    document.getElementById("calcForm").reset()
+    currentOperator = undefined
+}
 
-// let recentResultSection = document.getElementById('recentResult')
-
-// recentResult = history(history.length-1).answer
-
-// console.log('recent result:', recentResult)
-
-// recentResultSection.innerHTML = `<span id="recentResultText"> </span>`
-
-// let resultHistory = document.getElementById('resultHistory')
-// console.log(resultHistory)
-
-// resultHistory.innerHTML += ""
-// //use history to render before re-rendering
-// for (let item of history) {
-//     console.log('current history item', item)
-
-//     resultHistory.innerHTML += `<li>${item.num1} ${item.num2} = ${item.anser} ${item.operator}</li>`
-// }
-// }
-
-
-// // let numOne = '';
-// // let numTwo = '';
-// // let operator = '';
-// // let selectedOperator = false;
-
-// // function Btn(value) {
-// //     let display = document.getElementById('display');
-// //     if (!selectedOperator){
-// //         numOne += value;
-// //         display.value = numOne;
-// //     } else {
-// //         numTwo += value;
-// //         display.value = numTwo;
-// //     }
-// // }
-// // function clearInputs() { //function to clear inputs
-// //     numOne = '';
-// //     numTwo = '';
-// //     operator = '';
-// //     selectedOperator = false;
