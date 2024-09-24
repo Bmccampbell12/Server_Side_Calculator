@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
 let PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log('server runnning on', 5001);
-});
 
 app.use(express.json());
 app.use(express.static('server/public'));
@@ -11,39 +8,43 @@ app.use(express.urlencoded({extended:true}))
 // Global variable that will contain all of the
 // calculation objects:
 let calculations = [{
-  num1: 12,
-  num2: 4,
-  op: '*',
-  answer: 8}, 
-  {
-  num1: 6,
+  num1: 3,
   num2: 9,
-  op: '-',
-  answer: 5}, 
+  op: '*',
+  answer: 27}, 
   {
-    num1: 5,
-    num2: 2,
+  num1: 8,
+  num2: 2,
+  op: '-',
+  answer: 6}, 
+  {
+    num1: 4,
+    num2: 5,
     op: '+',
-    answer: 7
+    answer: 9
   }
-]
-
+];
 
 // Here's a wonderful place to make some routes:
-app.get('/calculations', (req, res) => {
-  res.send('calculations');
-});
 // GET /calculations
-app.get('/calculator', (req, res) => {
-  res.send(calculations);
-});
-// POST /calculations
+app.get('/calculations', (req, res) => {
+  const recentCalculations = calculations[calculations.length -1];
+  res.json({
+    recentResult: recentCalculations,
+    history: calculations
+  });
+
+//POST /calculations
 app.post('/calculations', (req, res) => {
+
+  let calculationsToAdd = req.body
+  
   const {numOne, numTwo, operator } = req.body;
   if (numOne === undefined);
     else if (numTwo === undefined);
   else if(operator === undefined)
-return res.status(400)
+  console.log("post calculation hit!", req.body)
+// return res.status(201)
 });
 
 

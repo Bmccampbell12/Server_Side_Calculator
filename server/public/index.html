@@ -5,56 +5,31 @@
     <title>Server-Side Calculator</title>    
     <script defer src="scripts/axios.js"></script>
     <script defer src="scripts/client.js" charset="utf-8"></script>
-    <!--script src="app.js"></script-->
+
+    <h1>Server-Side Calculator</h1>
   </head>
   <body>
-    <h1>Server-Side Calculator</h1>
-   <!--will put calculator buttons here-->
-    
+    <div>
+      <input data-testid="numOne" type="number" id= "numOne" placeholder="Enter First Number">
+      <input data-testid="numTwo" type="number" id="numTwo" placeholder="Enter Second Number">
+      <button type="button" id="addButton" onClick="selectOperator('+')">+</button>
+      <button type="button" id="subtractionButton" onClick="selectOperator('-')">-</button>
+      <button type="button" id="multiplyButton" onClick="selectOperator('*')">*</button>
+      <button type="button" id="divideButton" onClick="selectOperator('/')">/</button>
 
-    <form data-testid="calculator">
-      
-      <input data-testid="numOne" type="number" placeholder="First Number">
-      <button type="button" onClick="calculate(event, '+')">+</button>  <!--onClick functionality added to buttons-->
-      <button type="button" onClick="calculate(event, '-')">-</button>
-      <button type="button" onClick="calculate(event, '*')">*</button>
-      <button type="button" onClick="calculate(event, '/')">/</button>
-      <input data-testid="numTwo" type="number" placeholder="Second Number">
-      <button type="button" onClick="calculate('=')">=</button>
-      <button type="reset">C</button>  <!--type assigned to reset button-->
-      <form class="calculator-container"> <!--input type="text" id="display" class="display"-->
-        <div class="button">
-          <button class="button" onClick="Btn(7)">7</button>
-          <button class="button" onClick="Btn(8)">8</button>
-          <button class="button" onClick="Btn(9)">9</button>
-          <button class="button" onClick="Btn(4)">4</button>
-          <button class="button" onClick="Btn(5)">5</button>
-          <button class="button" onClick="Btn(6)">6</button>
-          <button class="button" onClick="Btn(1)">1</button>
-          <button class="button" onClick="Btn(2)">2</button>
-          <button class="button" onClick="Btn(3)">3</button>
+      <button type="button" id="equalsButton" onClick="calculate()">=</button>
+      <button type="button" id="clearButton" onClick="clearInputs()">C</button> 
+  </div>
+   
+  <section data-test="recentResults">
+    <h2>Recent Results</h2>
 
-          <button class="button" onClick="Btn(0)">0</button>
-          <button class="button" onClick="Btn('.')">.</button>
+    <p id="recentResultDisplay">No RecentResult"</P>
+      </section>
 
-        </form>
-        </div>
-    </form>
-
-    <section data-testid="recentResult">
-      <!-- The most recent calculation result goes here. -->
-       <section id="recentResult">Recent Calculation Result:</section>
-    </section>
-
-    <section data-testid="resultHistory">
-      <!-- The list of calculation results goes here. -->
-       <h2>Calculation History:</h2>
-       <ul id="resultHistory"></ul>
-       <!--will display server history-->
-    </section>
-<script>
-
-
-</script>
+      <section data-testid="recentHistory">
+<h2>Result History</h2>
+<ul id="resultHistoryList"></ul>
+      </section>
   </body>
 </html>
