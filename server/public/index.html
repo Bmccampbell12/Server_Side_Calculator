@@ -9,27 +9,28 @@
     <h1>Server-Side Calculator</h1>
   </head>
   <body>
+    <form data-testid="calculator">
     <div>
       <input data-testid="numOne" type="number" id= "numOne" placeholder="Enter First Number">
       <input data-testid="numTwo" type="number" id="numTwo" placeholder="Enter Second Number">
-      <button type="button" id="addButton" onClick="selectOperator('+')">+</button>
-      <button type="button" id="subtractionButton" onClick="selectOperator('-')">-</button>
-      <button type="button" id="multiplyButton" onClick="selectOperator('*')">*</button>
-      <button type="button" id="divideButton" onClick="selectOperator('/')">/</button>
+      <button data-testid="operator" type="button" id="addButton" onClick="setOperator('+')">+</button>
+      <button data-testid="operator" type="button" id="subtractionButton" onClick="setOperator('-')">-</button>
+      <button data-testid="operator" type="button" id="multiplyButton" onClick="setOperator('*')">*</button>
+      <button data-testid="operator" type="button" id="divideButton" onClick="setOperator('/')">/</button>
 
-      <button type="button" id="equalsButton" onClick="calculate()">=</button>
-      <button type="button" id="clearButton" onClick="clearInputs()">C</button> 
+      <button data-testid="equalsButton" type="button" id="equalsButton" onClick="calculate()">=</button>
+      <button data-testid="clearButton" type="button" id="clearButton" onClick="clearInputs()">C</button> 
   </div>
-   
-  <section data-test="recentResults">
+</form>
+  <section data-testid="recentResult">
     <h2>Recent Results</h2>
 
-    <p id="recentResultDisplay">No RecentResult"</P>
+    <p data-testid="recentResultDisplay">No RecentResult"</P>
       </section>
 
       <section data-testid="recentHistory">
 <h2>Result History</h2>
-<ul id="resultHistoryList"></ul>
+<ul data-testid="resultHistory"></ul>
       </section>
   </body>
 </html>

@@ -9,44 +9,48 @@ app.use(express.urlencoded({extended:true}))
 // Global variable that will contain all of the
 
 // calculation objects:
-let calculations = [{
-  num1: 10101,
-  num2: 9,
-  op: '*',
-  result: 27}, 
-  {
-  num1: 8,
-  num2: 2,
-  op: '-',
-  result: 6}, 
-  {
-    num1: 4,
-    num2: 5,
-    op: '+',
-    result: 9
-  }
-];
+let calculations = [];
 
 // Here's a wonderful place to make some routes:
 // GET /calculations
 
-app.get("/calculations", (req, res) => {
-  const recentCalculations = calculations[calculations.length -1];
-  res.send(calculations)
+app.get('/calculations', (req, res) => {
+  res.send(calculations);
 });
-
 
 //POST /calculations adds 
 app.post('/calculations', (req, res) => {
-
-  let calculationsToAdd = req.body
+const { numOne, numTwo, operator } = req.body;
   
-  const {numOne, numTwo, operator,} = req.body;
-  if (numOne === undefined);
-    else if (numTwo === undefined);
-  else if(operator === undefined)
+  // if (numOne === undefined);
+  //   else if (numTwo === undefined);
+  // else if(operator === undefined) {
   console.log("post calculation hit!", req.body)
- res.sendStatus(201)
+  // return res.status(400).send('Missing required fields');
+
+  let result;
+
+  if (operator === '+'){
+    result = (numOne) + (numTwo);
+  } else if (operator === '-') {
+    result = (numOne) - (numTwo);
+  }else if (operator === '*') {
+    result = (numOne) * (numTwo);
+  }else if (operator ==='/') {
+    result = (numOne) / (numTwo);
+  }else {
+    return res.status(400).send('Invalid Operator');
+  }
+
+  const newCalculation = {
+    numOne: numOne,
+    numTwo: numTwo,
+    operator,
+    result
+  };
+
+  calculations.push(newCalculation);
+  res.sendStatus(201);
 });
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
