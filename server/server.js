@@ -5,48 +5,49 @@ let PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(express.static('server/public'));
 app.use(express.urlencoded({extended:true}))
+
 // Global variable that will contain all of the
+
 // calculation objects:
 let calculations = [{
-  num1: 3,
+  num1: 10101,
   num2: 9,
   op: '*',
-  answer: 27}, 
+  result: 27}, 
   {
   num1: 8,
   num2: 2,
   op: '-',
-  answer: 6}, 
+  result: 6}, 
   {
     num1: 4,
     num2: 5,
     op: '+',
-    answer: 9
+    result: 9
   }
 ];
 
 // Here's a wonderful place to make some routes:
 // GET /calculations
-app.get('/calculations', (req, res) => {
+
+app.get("/calculations", (req, res) => {
   const recentCalculations = calculations[calculations.length -1];
-  res.json({
-    recentResult: recentCalculations,
-    history: calculations
-  });
+  res.send(calculations)
+});
+
 
 //POST /calculations adds 
 app.post('/calculations', (req, res) => {
 
   let calculationsToAdd = req.body
   
-  const {numOne, numTwo, operator } = req.body;
+  const {numOne, numTwo, operator,} = req.body;
   if (numOne === undefined);
     else if (numTwo === undefined);
   else if(operator === undefined)
   console.log("post calculation hit!", req.body)
-// return res.status(201)
+ res.sendStatus(201)
 });
-
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸

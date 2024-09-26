@@ -1,12 +1,13 @@
 //Need render function that calls when page first loads
 console.log('client.js sourced!')
 
-let currentOperator 
+let currentOperator;
+let answer = 0; 
+
 
 //Takes OP from DOM onClick buttons
 let setOperator = (event, op) => {
     event.preventDefault()
-
     currentOperator = op
     console.log("current operator:", currentOperator)
 }
@@ -17,49 +18,45 @@ let getHistory = () => {
     //Axios call!
     axios({
         method: 'GET',
-        url:'/getHistory'
+        url:'/calculations'
     })
     .then((response) => {
         console.log('response received from getHistory:', response.data)
         let history = response.data
         renderHistory(history)
-
-    })
-    .catch((error) =>{
+    }).catch((error) =>{
         console.log('error in "GET"/getHistory', error)
     })
 }
 
-getHistory()
+
 //posts new calc. to /postHistory
 
 let postHistory = (event) => {
     event.preventDefault()
-        console.log('new history has been created')
+        console.log('new history has been created');
 
         //Input field selectors
-        let numOne = document.getElementById('numOne').value
-        let numTwo = document.getElementById('numTwo').value
+        let numOne = document.getElementById('numOne').value;
+        let numTwo = document.getElementById('numTwo').value;
 
         let newHistory = {
-            num1: numOne,
-            num2: numTwo,
+            numOne: numOne,
+            numTwo: numTwo,
             operator: currentOperator,
-        }
+        };
 console.log('new send history', newHistory)
     
         axios({
             method: 'POST',
-            url: '/postHistory',
+            url: '/calculations',
             data: newHistory
         })
         .then((response) => {
-            console.log('/postHistory successful!')
-
-            //need to re-render the DOM.
-            getHistory()
+            console.log('/postHistory successful!');
+            getHistory();           //need to re-render the DOM. getHistory()
             // Clear form after 'post'
-            clearForm(event)
+            clearForm(event);
         })
         .catch((error) => {
             console.error('error on POST/ postHistory', error)
@@ -70,30 +67,29 @@ console.log('new send history', newHistory)
 let renderHistory = (calcHistory) => {
     console.log(calcHistory)
 
-    let resultHistory = document.getElementById('resultHistory')
-    resultHistory.innerHTML = ""
+    let resultHistory = document.getElementById('resultHistoryList')
+    resultHistory.innerHTML = "";
 
     for (let history of calcHistory) {
         resultHistory.innerHTML += `
-            <div>${history.num1} ${history.operator} ${history.num2} = ${history.result}</div>
-        `
+            <li>${history.numOne} ${history.operator} ${history.numTwo} = ${history.result}</li>
+        `;
     }
-    let recentResult = document.getElementById("recentResult")
+    let recentResult = document.getElementById("recentResultDisplay")
     let lastHistory = calcHistory[calcHistory.length - 1]
     
     // Will only render last history if exists in the history array.
     if (lastHistory) {
-        recentResult.innerHTML = `
-        <div>${lastHistory.result}</div>
-    `
+        recentResult.innerHTML = `${lastHistory.result}`;
+      
     }
 
 }
 
 let clearForm = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     //selectors for input fields
-    document.getElementById("calcForm").reset()
-    currentOperator = undefined
+    document.getElementById("calculator").reset();
+    currentOperator = undefined;
 }
-
+getHistory();
