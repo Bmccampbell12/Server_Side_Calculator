@@ -20,7 +20,7 @@ function getHistory() {
     //Axios call!
     axios({
         method: 'GET',
-        url:'/calculations'
+        url:'/calculations',
     })
     .then((response) => {
         console.log('response received from getHistory:', response.data);
@@ -70,22 +70,30 @@ function renderHistory(calculations) {
 let renderHistory = document.getElementById('resultHistory');
 resultHistory.innerHTML = "<h2>Result History</h2>";
 
-    for (let calc of calculations) {
+    calculations.forEach(calc => {
         resultHistory.innerHTML += `
             <div>${calc.numOne} ${calc.operator} ${calc.numTwo} = ${calc.result}</div>
         `;
-    }
-
+    });
 }
+
     function renderRecentResult(calculations) {
-        let recentResult = document.getElementById('recentResult');
+        let recentResult = document.querySelector('recentResult');
         recentResult.innerHTML = `<h2>Recent Result</h2>`;
 
         if (calculations.length > 0) {
             let lastCalc = calculations[calculations.length -1];
             recentResult.innerHTML += `<div>${lastCalc.result}</div>`;
+            
+            axios.get('calculations'
+                .then(response => {
+                    renderRecentResult(response.data);
+                })
+            )
+        }
     }
-}
+
+
 
 
 function clearInput(event) {
@@ -97,3 +105,4 @@ function clearInput(event) {
 
 console.log('form cleared');
 }
+onReady();
