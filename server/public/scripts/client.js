@@ -1,18 +1,21 @@
 //console.log('client.js sourced!')
-
+//Global variable declared
 let currentOperator;
+
+document.getElementById('equalsButton').addEventListener('click', Calculate);
+document.getElementById('clearButton').addEventListener('click', clearButton);
 
 //runs upon page load
 function onReady() {
     console.log('DOM loaded');
     getHistory();
-
+}
 
 //sets the current operator
 function setOperator(op) {
     currentOperator = op;
     console.log("current operator:", currentOperator);
-}
+
 
 // function to 'GET' calculation History 
 function getHistory() {
@@ -34,7 +37,7 @@ function getHistory() {
 
 //posts new calculation
 
-function Calculate(event) {
+function Calculate() {
 
         console.log('onClick activated, POST request sent!');
 
@@ -57,7 +60,7 @@ console.log('new send history', newCalculation)
         })
         .then((response) => {
             console.log("'POST' /calculations successful!");
-            getHistory();           //need to re-render the DOM. getHistory()
+            getHistory()           //need to re-render the DOM. getHistory()
             // Clear form after 'post'
         })
         .catch((error) => {
@@ -67,7 +70,7 @@ console.log('new send history', newCalculation)
 }
 //render function
 function renderHistory(calculations) {
-let renderHistory = document.getElementById('resultHistory');
+let resultHistory = document.getElementById('resultHistory');
 resultHistory.innerHTML = "<h2>Result History</h2>";
 
     calculations.forEach(calc => {
@@ -78,31 +81,30 @@ resultHistory.innerHTML = "<h2>Result History</h2>";
 }
 
     function renderRecentResult(calculations) {
-        let recentResult = document.querySelector('recentResult');
-        recentResult.innerHTML = `<h2>Recent Result</h2>`;
-
+        let recentResult = document.querySelector('recentResultDisplay');
         if (calculations.length > 0) {
             let lastCalc = calculations[calculations.length -1];
             recentResult.innerHTML += `<div>${lastCalc.result}</div>`;
-            
-            axios.get('calculations'
-                .then(response => {
-                    renderRecentResult(response.data);
-                })
-            )
-        }
+         } else {
+                recentResult.textContent = "no recent result"
+            }
     }
 
 
 
 
-function clearInput(event) {
-    event.preventDefault();
-    document.getElementById('calculator').reset(); 
+function clearInputs() {
+    
+    document.getElementById('numOne').value = '';
+    document.getElementById('numTwo').value = '';
      //selectors for input fields
     currentOperator = undefined;
+    console.log('form cleared');
+    
+function onReady() {
+    getHistory();
 
-
-console.log('form cleared');
 }
-onReady();
+
+
+}
