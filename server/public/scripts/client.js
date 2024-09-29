@@ -9,8 +9,8 @@ document.getElementById('clearButton').addEventListener('click', clearButton);
 function onReady() {
     console.log('DOM loaded');
     getHistory();
-}
 
+}
 //sets the current operator
 function setOperator(op) {
     currentOperator = op;
@@ -18,21 +18,6 @@ function setOperator(op) {
 
 
 // function to 'GET' calculation History 
-function getHistory() {
-    console.log("getHistory function is working!")
-    //Axios call!
-    axios({
-        method: 'GET',
-        url:'/calculations',
-    })
-    .then((response) => {
-        console.log('response received from getHistory:', response.data);
-        renderHistory(response.data);
-        renderRecentResult(response.data);
-    }).catch((error) =>{
-        console.log('Error in "GET" calculations', error)
-    });
-}
 }
 
 //posts new calculation
@@ -49,7 +34,7 @@ function Calculate() {
             numOne: numOne,
             numTwo: numTwo,
             operator: currentOperator,
-        };
+        }
 
 console.log('new send history', newCalculation)
     
@@ -57,9 +42,8 @@ console.log('new send history', newCalculation)
             method: 'POST',
             url: '/calculations',
             data: newCalculation
-        })
-        .then((response) => {
-            console.log("'POST' /calculations successful!");
+        }).then((response) => {
+            console.log("'POST' /calculations successful!", response);
             getHistory()           //need to re-render the DOM. getHistory()
             // Clear form after 'post'
         })

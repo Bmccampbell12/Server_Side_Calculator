@@ -9,7 +9,7 @@
     <h1>Server-Side Calculator</h1>
   </head>
   <body>
-    <form data-testid="calculator">
+    <form data-testid="calculator" onSubmit="handleSubmit(event)">
     <div>
       <input data-testid="numOne" type="number" id= "numOne" placeholder="Enter First Number">
       <input data-testid="numTwo" type="number" id="numTwo" placeholder="Enter Second Number">
@@ -18,7 +18,7 @@
       <button data-testid="operator" type="button"  onClick="setOperator('*')">*</button>
       <button data-testid="operator" type="button"  onClick="setOperator('/')">/</button>
 
-      <button data-testid="equalsButton" type="button" id="equalsButton" onClick="Calculate()">=</button>
+      <button data-testid="equalsButton" type="button" id="equalsButton" onClick="Calculate">=</button>
       <button data-testid="clearButton" type="button" id="clearButton" onClick="clearInputs()">C</button> 
   </div>
 </form>
