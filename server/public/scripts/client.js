@@ -1,13 +1,25 @@
 //console.log('client.js sourced!')
 //Global variable declared
+onReady();
+
 let currentOperator;
 
 document.getElementById('equalsButton').addEventListener('click', Calculate);
 document.getElementById('clearButton').addEventListener('click', clearButton);
-
+//added function to get calculation history from the server.
+function getHistory() {
+    axios.get('/calculations')     
+    .then(response => {
+        console.log('calculations history has been received!', response.data);
+        renderHistory(response.data);
+    }).catch(error => {
+        console.error('Error getting calculation history', error);
+        alert('Calculation history failed to load');
+    });
+}
 //runs upon page load
 function onReady() {
-    console.log('DOM loaded');
+    console.log('DOM loaded')
     getHistory();
 
 }
@@ -44,33 +56,35 @@ console.log('new send history', newCalculation)
             data: newCalculation
         }).then((response) => {
             console.log("'POST' /calculations successful!", response);
-            getHistory()           //need to re-render the DOM. getHistory()
-            // Clear form after 'post'
-        })
-        .catch((error) => {
+            getHistory();   //getHistory function is now called AND defined.
+        }).catch((error) => {
             console.error('error on POST/ calculations', error)
             alert('calculations not working')
         });
 }
 //render function
 function renderHistory(calculations) {
+
 let resultHistory = document.getElementById('resultHistory');
-resultHistory.innerHTML = "<h2>Result History</h2>";
+
+
+calculations.innerHTML = "<h2>Result History</h2>";
 
     calculations.forEach(calc => {
         resultHistory.innerHTML += `
             <div>${calc.numOne} ${calc.operator} ${calc.numTwo} = ${calc.result}</div>
-        `;
+        `
+        //console.error("element with Id 'resltHistory' not found")
     });
 }
 
     function renderRecentResult(calculations) {
-        let recentResult = document.querySelector('recentResultDisplay');
+        let recentResult = document.getElementById('recentResultDisplay');
         if (calculations.length > 0) {
             let lastCalc = calculations[calculations.length -1];
-            recentResult.innerHTML += `<div>${lastCalc.result}</div>`;
+            calculations.innerHTML += `<div>${lastCalc.result}</div>`;
          } else {
-                recentResult.textContent = "no recent result"
+                calculations.textContent = "no recent result"
             }
     }
 

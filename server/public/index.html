@@ -18,19 +18,20 @@
       <button data-testid="operator" type="button"  onClick="setOperator('*')">*</button>
       <button data-testid="operator" type="button"  onClick="setOperator('/')">/</button>
 
-      <button data-testid="equalsButton" type="button" id="equalsButton" onClick="Calculate">=</button>
+      <button data-testid="equalsButton" type="button" id="equalsButton" onClick="Calculate()">=</button>
       <button data-testid="clearButton" type="button" id="clearButton" onClick="clearInputs()">C</button> 
   </div>
 </form>
-  <section data-testid="recentResult">
-    <h2>Recent Results</h2>
+  
+    <h2>Recent Result</h2>
+    <section data-testid="recentResult"></section>
 
-    <p data-testid="recentResultDisplay">No RecentResult"</P>
+    <div data-testid="recentResultDisplay">No Recent Result"></div>
       </section>
 
       <section data-testid="recentHistory">
 <h2>Result History</h2>
-<ul data-testid="resultHistory"></ul>
+<section data-testid="resultHistory" id="resultHistory"></section>
       </section>
   </body>
 </html>

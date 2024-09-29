@@ -16,6 +16,7 @@ let calculations = [];
 
 app.get('/calculations', (req, res) => {
   res.send(calculations);
+  
 });
 
 //POST /calculations adds 
