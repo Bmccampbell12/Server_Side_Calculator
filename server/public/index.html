@@ -10,7 +10,7 @@
   </head>
   <body>
     <form data-testid="calculator" onSubmit="handleSubmit(event)">
-    <div>
+    
       <input data-testid="numOne" type="number" id= "numOne" placeholder="Enter First Number">
       <input data-testid="numTwo" type="number" id="numTwo" placeholder="Enter Second Number">
       <button data-testid="operator" type="button"  onClick="setOperator('+')">+</button>
@@ -20,18 +20,14 @@
 
       <button data-testid="equalsButton" type="button" id="equalsButton" onClick="Calculate()">=</button>
       <button data-testid="clearButton" type="button" id="clearButton" onClick="clearInputs()">C</button> 
-  </div>
 </form>
   
     <h2>Recent Result</h2>
-    <section data-testid="recentResult"></section>
+  <section data-testid="recentResult" id="recentResultDisplay">No Recent Result</section>
+     
 
-    <div data-testid="recentResultDisplay">No Recent Result"</div>
-      </section>
-
-      <section data-testid="recentHistory">
 <h2>Result History</h2>
 <section data-testid="resultHistory" id="resultHistory"></section>
-      </section>
+      
   </body>
 </html>

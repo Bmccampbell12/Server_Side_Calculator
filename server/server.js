@@ -12,25 +12,19 @@ app.use(express.urlencoded({extended:true}))
 let calculations = [];
 
 // Here's a wonderful place to make some routes:
+
 // GET /calculations
-
-app.get('/calculations', (req, res) => {
-  res.send(calculations);
-
+app.get('/calculations', (req, res) => {  //listens for  GET req
+  res.send(calculations); //response with calculations
 });
 
 //POST '/calculations adds 
-app.post('/calculations', (req, res) => {
-const { numOne, numTwo, operator } = req.body;
-const num1 = parseFloat(numOne);
-const num2 = parseFloat(numTwo);
+app.post('/calculations', (req, res) => {   //listens for post request
+let { numOne, numTwo, operator } = req.body;
 
-  
-  // if (numOne === undefined);
-  //   else if (numTwo === undefined);
-  // else if(operator === undefined) {
-  // console.log("post calculation hit!", req.body)
-  // return res.status(400).send('Missing required fields');
+let num1 = parseFloat(numOne); //performs math with numOne, numTwo, and op.
+let num2 = parseFloat(numTwo);
+
 
   let result;
 
@@ -45,15 +39,16 @@ const num2 = parseFloat(numTwo);
   }else {
     return res.status(400).send('Invalid Operator');
   }
+//makes sure the operators are valid. 
 
-  const newCalculation = {
+  let newCalculation = {
     numOne: num1,
-    numTwo: num2,
+    numTwo: num2,          //stores new calculation in newCalculation
     operator,
     result
   };
-  calculations.push(newCalculation);
-  res.sendStatus(201);
+  calculations.push(newCalculation);  //newCalculation added using .push added to 201 status
+  res.status(201).send(newCalculation);
 });
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
@@ -74,7 +69,7 @@ const server = app.listen(PORT, () => {
 app.post('/calculations', (req, res) => {
   res.send(calculations)
 })
-// server.setTimeout(500)
+server.setTimeout(500)
 
 // This is more weird "for testing reasons" code. There is
 // absolutely no need for you to reason about this.
