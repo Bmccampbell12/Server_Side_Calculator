@@ -16,40 +16,42 @@ let calculations = [];
 
 app.get('/calculations', (req, res) => {
   res.send(calculations);
-  
+
 });
 
-//POST /calculations adds 
+//POST '/calculations adds 
 app.post('/calculations', (req, res) => {
 const { numOne, numTwo, operator } = req.body;
+const num1 = parseFloat(numOne);
+const num2 = parseFloat(numTwo);
+
   
   // if (numOne === undefined);
   //   else if (numTwo === undefined);
   // else if(operator === undefined) {
-  console.log("post calculation hit!", req.body)
+  // console.log("post calculation hit!", req.body)
   // return res.status(400).send('Missing required fields');
 
   let result;
 
   if (operator === '+'){
-    result = (numOne) + (numTwo);
+    result = num1 + num2;
   } else if (operator === '-') {
-    result = (numOne) - (numTwo);
+    result = num1 - num2;
   }else if (operator === '*') {
-    result = (numOne) * (numTwo);
+    result = num1 * num2;
   }else if (operator ==='/') {
-    result = (numOne) / (numTwo);
+    result = num1 / num2;
   }else {
     return res.status(400).send('Invalid Operator');
   }
 
   const newCalculation = {
-    numOne: numOne,
-    numTwo: numTwo,
+    numOne: num1,
+    numTwo: num2,
     operator,
     result
   };
-
   calculations.push(newCalculation);
   res.sendStatus(201);
 });
